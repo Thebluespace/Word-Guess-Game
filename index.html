@@ -37,20 +37,24 @@
       </nav>
       <br><br><br>
       <div>
-            <h2 id="wordtoguess">Word to guess</h2>
+            <h2 class="col-6 offset-3" id="wordtoguess">Word to guess</h2>
       </div>
     <div>
         <form class="col-sm-9 offset-sm-1">
             <div class="form-group">
               <label for="example">Guessed Characters:</label><br>
-              <label for="example2">abc</label>
+              <label for="example2" id="guessedchara">abc</label>
             </div>
             <div class="form group">
                 <label for="exampleInputPassword1">Input Character To Guess</label>
-                <input type="text" class="form-control col-1" id="guessingchar" placeholder="abc">
+                <input type="text" maxlength="1" class="form-control col-1" id="guessingchar" placeholder="abc">
             </div><br>
-            <button type="submit" class="btn btn-primary" onclick="guessChar();">Confirm Guess</button>
+            <button type="button" class="btn btn-primary" onclick="guessChar();">Confirm Guess</button>
           </form>
+
+          <!-- <script>
+            formReset();
+          </script> -->
     </div>
 </body>
 </html>
