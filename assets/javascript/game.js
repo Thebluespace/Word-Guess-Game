@@ -37,6 +37,7 @@ function guessChar() {
         {
             document.getElementById("guessedchara").innerHTML += guessedChar[u] + ", ";
         }
+        //alert(document.getElementById("wordtoguess").innerText);
         won = checkWord();
         if (won == true)
         {
@@ -86,13 +87,26 @@ function checkChar(char) {
 };
 
 function checkWord() {
-        var currentGuess = document.getElementById("wordtoguess").value;
-        var wordsplit = currentWord.split(" ");
-        if (currentGuess.includes(wordsplit[0]) && currentGuess.includes(wordsplit[1]))
-        {
-            return true;
+    try {
+    var state = false;
+        var compareGuess = document.getElementById("wordtoguess").textContent.toString().toLowerCase();
+        while (compareGuess.includes(" ")) {
+            var compareGuess = compareGuess.replace(" ","");
         }
-        return false;
+        var toCompare = currentWord.toLowerCase().replace(" ","");
+        //alert(toCompare);
+        //alert(compareGuess);
+        if (compareGuess == toCompare)
+        {
+            //alert("Match!");
+            state = true;
+        }
+
+        return state;
+    }
+    catch (error) {
+        alert(error.message);
+    }
 };
 
 function startTimer() {
