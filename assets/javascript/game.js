@@ -73,6 +73,9 @@ var gameo = {
         formReset: function() {
             try {
                 this.attempts = 7;
+                this.guessedChar = [];
+                this.won = false;
+                this.exists = false;
                 document.getElementById("wordtoguess").innerHTML = "";
                 this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length)];
                 //alert(this.currentWord);
@@ -90,13 +93,18 @@ var gameo = {
             }
         
         },
-
         endGame: function() {
             if(this.attempts >= 1){
                 alert("You won!");
+                this.wins += 1;
+                this.winForm();
+                this.endForm("win");
             } else {
                 alert("You lose!");
+                this.loses += 1;
+                this.endForm("lose");
             }
+            //this.formReset();
         },
         checkChar: function(char) {
             for (u = 0; u < this.guessedChar.length; u++)
@@ -137,7 +145,12 @@ var gameo = {
             }
         },
         startTimer: function() {
+            try {
 
+            }
+            catch(error) {
+                alert(error.message);
+            }
         },
         checkScore: function(){
 
@@ -152,74 +165,79 @@ var gameo = {
                 }
                 if(match == false) {
                     this.attempts -= 1;
+                    document.getElementById("attempts").value = "Attempts: "  + this.attempts;
                     //alert(this.attempts);
                 }
                 if(this.attempts == 0){
                     this.endGame();
                 }
+        },
+        preventRefresh: function(){
+            document.getElementById("guessingchar").addEventListener("keydown", function(event) {
+            if(event.keyCode != 8) {
+                if (event.keyCode == "13") {
+                    event.preventDefault();
+                    gameo.guessChar();
+                } else {
+                    document.getElementById("guessingchar").value = event.key;
+                }
+            }
+            });
+        },
+        endForm: function(str){
+                try {
+                    document.getElementById("wins").value = "Wins: " + this.wins;
+                    document.getElementById("loses").value = "Loses: " + this.loses;
+                    // document.getElementById("wbgi").style.display = "block";
+                    // document.getElementById("goheader").style.display = "block";
+                    // document.getElementById("gotext").style.display = "block";
+                    // document.getElementById("gobutton").style.display = "block";
+
+                // var gamerover = document.createElement("div");
+                // var goheader = document.createElement("h1");
+                // goheader.setAttribute("class","goheader");
+                // var gotext = document.createElement("p");
+                // gotext.setAttribute("class","gotext");
+                // gotext.innerHTML.value = "Wins: " + this.wins + "<br>" + "Loses: " + this.loses + "<br><br>" + "Word: " + this.currentWord;
+                // var gotimer = document.createElement("p");
+                // gotimer.setAttribute("class","gotimer");
+                // gotimer.setAttribute("id","gotimer");
+                // gamerover.style.backgroundImage = "url(../images/win.jpeg)";
+                // gamerover.setAttribute("style", "background-position: center center; background-repeat: no-repeat; background-size: 100% 100%; position: fixed; margin: 25%; height: 50%; width: 50%;");
+                if (str == "win") {
+                    // gamerover.setAttribute("class","wbgi");
+                    // document.body.prependChild(gamerover);
+                    // goheader.textContent = "You Win!";
+                    // document.getElementsByClassName("wbgi")[0].appendChild(goheader);
+                    // document.getElementsByClassName("wbgi")[0].appendChild(gotimer);
+                } else {
+                    // gamerover.setAttribute("class","lbgi");
+                    // document.body.prependChild(gamerover);
+                    // goheader.textContent = "You Lose!";
+                    // document.getElementsByClassName("lbgi")[0].appendChild(goheader);
+                    // document.getElementsByClassName("lbgi")[0].appendChild(gotimer);
+                }
+
+        //         this.startTimer();
+        //         alert("ALERT");
+        //         if (str == "win") {
+        //             document.getElementsByClassName("wbgi")[0].style.display = "none";
+        //         } else {
+        //             document.getElementsByClassName("lbgi")[0].style.display = "none";
+        //         }
+                
+        //         this.formReset();
+            }
+            catch (error) {
+                alert(error.message);
+            }
         }
 };
 
-
-// function formReset() { // old code, shifted everything inside of object 'gameo'
-//     try {
-//         document.getElementById("wordtoguess").innerHTML = "";
-//         var newWord = guessWordslist[Math.floor(Math.random() * guessWordslist.length)];
-//         currentWord = newWord;
-//         alert(currentWord);
-//         for (var i = 0; i < newWord.length; i++)
-//         {
-//             if (newWord.charAt(i) == " ") {
-//                 document.getElementById("wordtoguess").innerHTML += "&nbsp;&nbsp;&nbsp;"; 
-//             } else {
-//                 document.getElementById("wordtoguess").innerHTML += "_ "; 
-//             }
-//         }
-//     }
-//     catch(error) {
-//         alert(error.message);
-//     }
-
-// };
-
-// function endGame() {
-//     alert("You won!");
-// };
-
-// function checkChar(char) {
-//     for (u = 0; u < guessedChar.length; u++)
-//         {
-//             if (char == guessedChar[u])
-//             {
-//                 return true;
-//             }
-//         }
-//     return false;
-// };
-
-// function checkWord() {
-//     try {
-//     var state = false;
-//         var compareGuess = document.getElementById("wordtoguess").textContent.toString().toLowerCase();
-//         while (compareGuess.includes(" ")) {
-//             var compareGuess = compareGuess.replace(" ","");
-//         }
-//         var toCompare = currentWord.toLowerCase().replace(" ","");
-//         //alert(toCompare);
-//         //alert(compareGuess);
-//         if (compareGuess == toCompare)
-//         {
-//             //alert("Match!");
-//             state = true;
-//         }
-
-//         return state;
-//     }
-//     catch (error) {
-//         alert(error.message);
-//     }
-// };
-
-// function startTimer() {
-
-// };
+//add event listener to prevent refresh when pressing enter
+document.bind.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        this.guessChar();
+    }
+});

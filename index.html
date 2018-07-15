@@ -38,24 +38,23 @@
       <div class="bgi">
             <br><br><br><br><br><br><br><br><br>
             <div>
-                  <h1 class="col-6 offset-3" id="wordtoguess">Word to guess</h1>
-            </div>
-          <div>
-              <form class="col-sm-9 offset-sm-1">
+                  <h1 class="col-9 offset-3" id="wordtoguess">Word to guess</h1>
+            </div><br><br><br>
+          <div class="">
+              <form class="col-sm-9 offset-sm-3" id="formcontrol">
                   <div class="form-group">
                     <label for="example">Guessed Characters:</label><br>
-                    <label for="example2" id="guessedchara">abc</label>
+                    <label for="example2" id="guessedchara">abc</label><br>
+                    <label for="example2" id="attempts">Attempts Remaining: 7</label><br>
+                    <label for="example2" id="wins">Wins: 0</label><br>
+                    <label for="example2" id="loses">Loses: 0</label><br>
                   </div>
                   <div class="form group">
                       <label for="exampleInputPassword1">Input Character To Guess</label>
-                      <input type="text" maxlength="1" class="form-control col-1" id="guessingchar" placeholder="abc">
+                      <input type="text" maxlength="1" class="form-control col-1" id="guessingchar" onclick="gameo.preventRefresh();" placeholder="abc">
                   </div><br>
                   <button type="button" class="btn btn-primary" onclick="gameo.guessChar();">Confirm Guess</button>
                 </form>
-
-                <!-- <script>
-                  formReset();
-                </script> -->
           </div>
       </div>
 </body>
