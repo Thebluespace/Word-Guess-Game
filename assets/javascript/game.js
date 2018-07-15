@@ -26,7 +26,10 @@ var gameo = {
                     }
             
                 //Call function to check score
-                this.checkScore();
+                if(this.checkScore()!= true){
+                    return;
+                }
+
 
                 // writes current guessed characters to page and leaves blanks
                 document.getElementById("wordtoguess").innerHTML = "";
@@ -77,7 +80,7 @@ var gameo = {
                 this.exists = false;
                 document.getElementById("wordtoguess").innerHTML = "";
                 document.getElementById("guessedchara").innerHTML = "";
-                document.getElementById("attempts").innerHTML = "Wins: " + this.attempts;
+                document.getElementById("attempts").innerHTML = "Attempts: " + this.attempts;
                 document.getElementById("wins").innerHTML = "Wins: " + this.wins;
                 document.getElementById("loses").innerHTML = "Loses: " + this.loses;
                 this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length)];
@@ -98,10 +101,10 @@ var gameo = {
         },
         endGame: function() {
             if(this.attempts >= 1){
-                alert("You won!");
+                alert("You won!\nThe word was: " + this.currentWord);
                 this.wins = this.wins + 1;
             } else {
-                alert("You lose!");
+                alert("You lose!\nThe word was: " + this.currentWord);
                 this.loses = this.loses + 1;
             }
             this.formReset();
@@ -170,7 +173,9 @@ var gameo = {
                 }
                 if(this.attempts == 0){
                     this.endGame();
+                    return false;
                 }
+                return true;
         },
         preventRefresh: function(){
             document.getElementById("guessingchar").addEventListener("keydown", function(event) {
@@ -185,59 +190,12 @@ var gameo = {
             });
         },
         endForm: function(str){
-                try {
-                    document.getElementById("wins").value = "Wins: " + this.wins;
-                    document.getElementById("loses").value = "Loses: " + this.loses;
-                    // document.getElementById("wbgi").style.display = "block";
-                    // document.getElementById("goheader").style.display = "block";
-                    // document.getElementById("gotext").style.display = "block";
-                    // document.getElementById("gobutton").style.display = "block";
-
-                // var gamerover = document.createElement("div");
-                // var goheader = document.createElement("h1");
-                // goheader.setAttribute("class","goheader");
-                // var gotext = document.createElement("p");
-                // gotext.setAttribute("class","gotext");
-                // gotext.innerHTML.value = "Wins: " + this.wins + "<br>" + "Loses: " + this.loses + "<br><br>" + "Word: " + this.currentWord;
-                // var gotimer = document.createElement("p");
-                // gotimer.setAttribute("class","gotimer");
-                // gotimer.setAttribute("id","gotimer");
-                // gamerover.style.backgroundImage = "url(../images/win.jpeg)";
-                // gamerover.setAttribute("style", "background-position: center center; background-repeat: no-repeat; background-size: 100% 100%; position: fixed; margin: 25%; height: 50%; width: 50%;");
-                if (str == "win") {
-                    // gamerover.setAttribute("class","wbgi");
-                    // document.body.prependChild(gamerover);
-                    // goheader.textContent = "You Win!";
-                    // document.getElementsByClassName("wbgi")[0].appendChild(goheader);
-                    // document.getElementsByClassName("wbgi")[0].appendChild(gotimer);
-                } else {
-                    // gamerover.setAttribute("class","lbgi");
-                    // document.body.prependChild(gamerover);
-                    // goheader.textContent = "You Lose!";
-                    // document.getElementsByClassName("lbgi")[0].appendChild(goheader);
-                    // document.getElementsByClassName("lbgi")[0].appendChild(gotimer);
-                }
-
-        //         this.startTimer();
-        //         alert("ALERT");
-        //         if (str == "win") {
-        //             document.getElementsByClassName("wbgi")[0].style.display = "none";
-        //         } else {
-        //             document.getElementsByClassName("lbgi")[0].style.display = "none";
-        //         }
-                
-        //         this.formReset();
+            try {
+                document.getElementById("wins").value = "Wins: " + this.wins;
+                document.getElementById("loses").value = "Loses: " + this.loses;
             }
             catch (error) {
                 alert(error.message);
             }
         }
 };
-
-//add event listener to prevent refresh when pressing enter
-// document.body.addEventListener("keydown", function(event) {
-//     event.preventDefault();
-//     if (event.keyCode === 13) {
-//         this.guessChar();
-//     }
-// });
