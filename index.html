@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="assets/javascript/game.js"></script>
 </head>
-<body onload="formReset();">
+<body onload="gameo.formReset();">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <h2 class="navbar-brand"></h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,26 +35,28 @@
           </ul>
         </div>
       </nav>
-      <br><br><br>
-      <div>
-            <h2 class="col-6 offset-3" id="wordtoguess">Word to guess</h2>
-      </div>
-    <div>
-        <form class="col-sm-9 offset-sm-1">
-            <div class="form-group">
-              <label for="example">Guessed Characters:</label><br>
-              <label for="example2" id="guessedchara">abc</label>
+      <div class="bgi">
+            <br><br><br><br><br><br><br><br><br>
+            <div>
+                  <h1 class="col-6 offset-3" id="wordtoguess">Word to guess</h1>
             </div>
-            <div class="form group">
-                <label for="exampleInputPassword1">Input Character To Guess</label>
-                <input type="text" maxlength="1" class="form-control col-1" id="guessingchar" placeholder="abc">
-            </div><br>
-            <button type="button" class="btn btn-primary" onclick="guessChar();">Confirm Guess</button>
-          </form>
+          <div>
+              <form class="col-sm-9 offset-sm-1">
+                  <div class="form-group">
+                    <label for="example">Guessed Characters:</label><br>
+                    <label for="example2" id="guessedchara">abc</label>
+                  </div>
+                  <div class="form group">
+                      <label for="exampleInputPassword1">Input Character To Guess</label>
+                      <input type="text" maxlength="1" class="form-control col-1" id="guessingchar" placeholder="abc">
+                  </div><br>
+                  <button type="button" class="btn btn-primary" onclick="gameo.guessChar();">Confirm Guess</button>
+                </form>
 
-          <!-- <script>
-            formReset();
-          </script> -->
-    </div>
+                <!-- <script>
+                  formReset();
+                </script> -->
+          </div>
+      </div>
 </body>
 </html>
