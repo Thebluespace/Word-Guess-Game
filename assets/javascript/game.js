@@ -64,11 +64,10 @@ var gameo = {
                 {
                     this.endGame();
                 }
-            }
-            catch(error) {
+                return;
+            } catch(error) {
                     alert(error.message);
             }
-            return;
         },
         formReset: function() {
             try {
@@ -77,6 +76,10 @@ var gameo = {
                 this.won = false;
                 this.exists = false;
                 document.getElementById("wordtoguess").innerHTML = "";
+                document.getElementById("guessedchara").innerHTML = "";
+                document.getElementById("attempts").innerHTML = "Wins: " + this.attempts;
+                document.getElementById("wins").innerHTML = "Wins: " + this.wins;
+                document.getElementById("loses").innerHTML = "Loses: " + this.loses;
                 this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length)];
                 //alert(this.currentWord);
                 for (var i = 0; i < this.currentWord.length; i++)
@@ -96,15 +99,12 @@ var gameo = {
         endGame: function() {
             if(this.attempts >= 1){
                 alert("You won!");
-                this.wins += 1;
-                this.winForm();
-                this.endForm("win");
+                this.wins = this.wins + 1;
             } else {
                 alert("You lose!");
-                this.loses += 1;
-                this.endForm("lose");
+                this.loses = this.loses + 1;
             }
-            //this.formReset();
+            this.formReset();
         },
         checkChar: function(char) {
             for (u = 0; u < this.guessedChar.length; u++)
@@ -165,7 +165,7 @@ var gameo = {
                 }
                 if(match == false) {
                     this.attempts -= 1;
-                    document.getElementById("attempts").value = "Attempts: "  + this.attempts;
+                    document.getElementById("attempts").innerHTML = "Attempts: "  + this.attempts;
                     //alert(this.attempts);
                 }
                 if(this.attempts == 0){
@@ -235,9 +235,9 @@ var gameo = {
 };
 
 //add event listener to prevent refresh when pressing enter
-document.bind.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        this.guessChar();
-    }
-});
+// document.body.addEventListener("keydown", function(event) {
+//     event.preventDefault();
+//     if (event.keyCode === 13) {
+//         this.guessChar();
+//     }
+// });
