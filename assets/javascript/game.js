@@ -15,6 +15,10 @@ var gameo = {
     wins: 0,
     loses: 0,
 
+        formStart: function(){
+            var audio = new Audio("assets/media/loadsound.mp3");
+            audio.play();
+        },
         guessChar: function() {
             // Guess character function executed on Guess button press
             try{
@@ -100,12 +104,22 @@ var gameo = {
         
         },
         endGame: function() {
-            if(this.attempts >= 1){
-                alert("You won!\nThe word was: " + this.currentWord);
-                this.wins = this.wins + 1;
-            } else {
-                alert("You lose!\nThe word was: " + this.currentWord);
-                this.loses = this.loses + 1;
+            try {
+                if(this.attempts >= 1){
+                    var i = Math.floor(Math.random() * 3) + 1;
+                    var audio = new Audio("assets/media/winsound/" + i + ".mp3");
+                    audio.play();
+                    alert("You won!\nThe word was: " + this.currentWord);
+                    this.wins = this.wins + 1;
+                } else {
+                    var i = Math.floor(Math.random() * 3) + 1;
+                    var audio = new Audio("assets/media/losesound/" + i + ".mp3");
+                    audio.play();
+                    alert("You lose!\nThe word was: " + this.currentWord);
+                    this.loses = this.loses + 1;
+                }
+            } catch(error) {
+                error.message
             }
             this.formReset();
         },
@@ -184,7 +198,9 @@ var gameo = {
                     event.preventDefault();
                     gameo.guessChar();
                 } else {
-                    document.getElementById("guessingchar").value = event.key;
+                    if(event.key != "undefined"){
+                        document.getElementById("guessingchar").value = event.key;
+                    }
                 }
             }
             });
