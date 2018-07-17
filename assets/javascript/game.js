@@ -16,8 +16,14 @@ var gameo = {
     loses: 0,
 
         formStart: function(){
-            var audio = new Audio("assets/media/loadsound.mp3");
-            audio.play();
+            try {
+                var audio = new Audio("assets/media/loadsound.mp3");
+                audio.autoplay = true;
+                audio.play();
+            } catch(error) {
+                alert(error.message);
+            }
+            this.formReset();
         },
         guessChar: function() {
             // Guess character function executed on Guess button press
