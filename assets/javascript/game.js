@@ -199,7 +199,7 @@ var gameo = {
         },
         preventRefresh: function(){
             document.getElementById("guessingchar").addEventListener("keydown", function(event) {
-            if(event.keyCode != 8) {
+            if(event.keyCode != 8 || event.keyCode != 229) {
                 if (event.keyCode == "13") {
                     event.preventDefault();
                     gameo.guessChar();
