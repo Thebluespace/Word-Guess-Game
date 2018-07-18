@@ -1,6 +1,7 @@
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++ Rick & Morty Hangman Gae +++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++ created by Thomas Greenme ++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++ Rick & Morty Hangman Game +++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++ created by Thomas Greenme +++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
 
@@ -23,7 +24,9 @@ var gameo = {
             } catch(error) {
                 alert(error.message);
             }
-            gameo.formReset();
+            finally {
+                gameo.formReset();
+            }
         },
         guessChar: function() {
             // Guess character function executed on Guess button press
@@ -87,6 +90,7 @@ var gameo = {
             try {
                 gameo.attempts = 7;
                 gameo.guessedChar = [];
+                gameo.guessWordslist = ["Pickle Rick", "MR Meseeks", "Microverse Battery", "Jessica", "sea cucumber"];
                 gameo.won = false;
                 gameo.exists = false;
                 document.getElementById("wordtoguess").innerHTML = "";
@@ -94,7 +98,7 @@ var gameo = {
                 document.getElementById("attempts").innerHTML = "Attempts: " + gameo.attempts;
                 document.getElementById("wins").innerHTML = "Wins: " + gameo.wins;
                 document.getElementById("loses").innerHTML = "Loses: " + gameo.loses;
-                gameo.currentWord = gameo.guessWordslist[Math.floor(Math.random() * gameo.guessWordslist.length) + 1];
+                gameo.currentWord = gameo.guessWordslist[Math.floor(Math.random() * gameo.guessWordslist.length)];
                 //alert(gameo.currentWord);
                 for (var i = 0; i < gameo.currentWord.length; i++)
                 {
@@ -201,18 +205,22 @@ var gameo = {
                 return true;
         },
         preventRefresh: function(){
-            document.getElementById("guessingchar").addEventListener("keydown", function(event) {
-            if(event.keyCode != 8) {
-                if (event.keyCode == "13") {
-                    event.preventDefault();
-                    gameo.guessChar();
-                } else {
-                    if(event.key.length == 1){
-                        document.getElementById("guessingchar").value = event.key;
+            try {
+                document.getElementById("guessingchar").addEventListener("keydown", function(event) {
+                if(event.keyCode != 8) {
+                    if (event.keyCode == "13") {
+                        event.preventDefault();
+                        gameo.guessChar();
+                    } else {
+                        if(event.key.length == 1){
+                            document.getElementById("guessingchar").value = event.key;
+                        }
                     }
                 }
-            }
-            });
+                });
+                } catch {
+                    
+                }
         },
         endForm: function(str){
             try {
