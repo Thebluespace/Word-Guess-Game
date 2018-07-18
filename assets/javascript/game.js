@@ -23,41 +23,41 @@ var gameo = {
             } catch(error) {
                 alert(error.message);
             }
-            this.formReset();
+            gameo.formReset();
         },
         guessChar: function() {
             // Guess character function executed on Guess button press
             try{
                 // calls checkChar function to prevent guessing same character twice
-                this.exists = false;
-                this.exists = this.checkChar(document.getElementById("guessingchar").value)
-                if (this.exists == true) {
+                gameo.exists = false;
+                gameo.exists = gameo.checkChar(document.getElementById("guessingchar").value)
+                if (gameo.exists == true) {
                         alert("You already guessed " + document.getElementById("guessingchar").value + "!");
                         return;
                     }
             
                 //Call function to check score
-                if(this.checkScore()!= true){
+                if(gameo.checkScore()!= true){
                     return;
                 }
 
 
                 // writes current guessed characters to page and leaves blanks
                 document.getElementById("wordtoguess").innerHTML = "";
-                this.guessedChar.push(document.getElementById("guessingchar").value);  
-                for (var i = 0; i < this.currentWord.length; i++)
+                gameo.guessedChar.push(document.getElementById("guessingchar").value);  
+                for (var i = 0; i < gameo.currentWord.length; i++)
                 {
                     var u = 0;
                     var match = false;
-                    for (u = 0; u < this.guessedChar.length; u++)
+                    for (u = 0; u < gameo.guessedChar.length; u++)
                     {
-                        if (this.currentWord.charAt(i).toLowerCase() == this.guessedChar[u].toLowerCase()) {
+                        if (gameo.currentWord.charAt(i).toLowerCase() == gameo.guessedChar[u].toLowerCase()) {
                             match = true;
-                            document.getElementById("wordtoguess").innerHTML += this.guessedChar[u] + " "; 
+                            document.getElementById("wordtoguess").innerHTML += gameo.guessedChar[u] + " "; 
                         } 
                     }
                     if (match == false) {
-                        if (this.currentWord.charAt(i) == " ") {
+                        if (gameo.currentWord.charAt(i) == " ") {
                             document.getElementById("wordtoguess").innerHTML += "&nbsp;&nbsp;&nbsp;"; 
                             } else {
                             document.getElementById("wordtoguess").innerHTML += "_ "; 
@@ -67,16 +67,16 @@ var gameo = {
 
                 // writes guessed character to box
                 document.getElementById("guessedchara").innerHTML = "";
-                for (u = 0; u < this.guessedChar.length; u++)
+                for (u = 0; u < gameo.guessedChar.length; u++)
                 {
-                    document.getElementById("guessedchara").innerHTML += this.guessedChar[u] + ", ";
+                    document.getElementById("guessedchara").innerHTML += gameo.guessedChar[u] + ", ";
                 }
 
                 // calls check word to see if complete word has been guessed
-                this.won = this.checkWord();
-                if (this.won == true)
+                gameo.won = gameo.checkWord();
+                if (gameo.won == true)
                 {
-                    this.endGame();
+                    gameo.endGame();
                 }
                 return;
             } catch(error) {
@@ -85,20 +85,20 @@ var gameo = {
         },
         formReset: function() {
             try {
-                this.attempts = 7;
-                this.guessedChar = [];
-                this.won = false;
-                this.exists = false;
+                gameo.attempts = 7;
+                gameo.guessedChar = [];
+                gameo.won = false;
+                gameo.exists = false;
                 document.getElementById("wordtoguess").innerHTML = "";
                 document.getElementById("guessedchara").innerHTML = "";
-                document.getElementById("attempts").innerHTML = "Attempts: " + this.attempts;
-                document.getElementById("wins").innerHTML = "Wins: " + this.wins;
-                document.getElementById("loses").innerHTML = "Loses: " + this.loses;
-                this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length) + 1];
-                //alert(this.currentWord);
-                for (var i = 0; i < this.currentWord.length; i++)
+                document.getElementById("attempts").innerHTML = "Attempts: " + gameo.attempts;
+                document.getElementById("wins").innerHTML = "Wins: " + gameo.wins;
+                document.getElementById("loses").innerHTML = "Loses: " + gameo.loses;
+                gameo.currentWord = gameo.guessWordslist[Math.floor(Math.random() * gameo.guessWordslist.length) + 1];
+                //alert(gameo.currentWord);
+                for (var i = 0; i < gameo.currentWord.length; i++)
                 {
-                    if (this.currentWord.charAt(i) == " ") {
+                    if (gameo.currentWord.charAt(i) == " ") {
                         document.getElementById("wordtoguess").innerHTML += "&nbsp;&nbsp;&nbsp;"; 
                     } else {
                         document.getElementById("wordtoguess").innerHTML += "_ "; 
@@ -112,28 +112,30 @@ var gameo = {
         },
         endGame: function() {
             try {
-                if(this.attempts >= 1){
+                if(gameo.attempts >= 1){
                     var i = Math.floor(Math.random() * 3) + 1;
                     var audio = new Audio("assets/media/winsound/" + i + ".mp3");
                     audio.play();
-                    alert("You won!\nThe word was: " + this.currentWord);
-                    this.wins = this.wins + 1;
+                    alert("You won!\nThe word was: " + gameo.currentWord);
+                    gameo.wins = gameo.wins + 1;
                 } else {
                     var i = Math.floor(Math.random() * 3) + 1;
                     var audio = new Audio("assets/media/losesound/" + i + ".mp3");
                     audio.play();
-                    alert("You lose!\nThe word was: " + this.currentWord);
-                    this.loses = this.loses + 1;
+                    alert("You lose!\nThe word was: " + gameo.currentWord);
+                    gameo.loses = gameo.loses + 1;
                 }
             } catch(error) {
                 alert(error.message);
             }
-            this.formReset();
+            finally {
+                gameo.formReset();
+            }
         },
         checkChar: function(char) {
-            for (u = 0; u < this.guessedChar.length; u++)
+            for (u = 0; u < gameo.guessedChar.length; u++)
                 {
-                    if (char == this.guessedChar[u])
+                    if (char == gameo.guessedChar[u])
                     {
                         return true;
                     }
@@ -151,7 +153,7 @@ var gameo = {
                     compareGuess = compareGuess.replace(" ","");
                     //alert(compareGuess); // for debugging
                 }
-                var toCompare = this.currentWord.toLowerCase();
+                var toCompare = gameo.currentWord.toLowerCase();
                 while (toCompare.includes(" ")) {
                     toCompare = toCompare.replace(" ","");
                     //alert(toCompare); // for debugging
@@ -181,19 +183,19 @@ var gameo = {
             // checks current guessing char to see if it matches any char in the currentWord
             var match = false;
             var currentGuess = document.getElementById("guessingchar").value;
-                for (var u = 0; u < this.currentWord.length; u++)
+                for (var u = 0; u < gameo.currentWord.length; u++)
                 {
-                    if (this.currentWord.charAt(u).toLowerCase() == currentGuess.toLowerCase()) {
+                    if (gameo.currentWord.charAt(u).toLowerCase() == currentGuess.toLowerCase()) {
                         match = true;
                     }
                 }
                 if(match == false) {
-                    this.attempts -= 1;
-                    document.getElementById("attempts").innerHTML = "Attempts: "  + this.attempts;
-                    //alert(this.attempts);
+                    gameo.attempts -= 1;
+                    document.getElementById("attempts").innerHTML = "Attempts: "  + gameo.attempts;
+                    //alert(gameo.attempts);
                 }
-                if(this.attempts == 0){
-                    this.endGame();
+                if(gameo.attempts == 0){
+                    gameo.endGame();
                     return false;
                 }
                 return true;
@@ -214,8 +216,8 @@ var gameo = {
         },
         endForm: function(str){
             try {
-                document.getElementById("wins").value = "Wins: " + this.wins;
-                document.getElementById("loses").value = "Loses: " + this.loses;
+                document.getElementById("wins").value = "Wins: " + gameo.wins;
+                document.getElementById("loses").value = "Loses: " + gameo.loses;
             }
             catch (error) {
                 alert(error.message);
