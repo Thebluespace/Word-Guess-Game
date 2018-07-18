@@ -18,6 +18,7 @@ var gameo = {
 
         formStart: function(){
             try {
+                gameo.preventRefresh();
                 var audio = new Audio("assets/media/loadsound.mp3");
                 audio.autoplay = true;
                 audio.play();
@@ -109,7 +110,7 @@ var gameo = {
                     }
                 }
             }
-            catch(error) {
+            catch(error) {guessWordslist: ["Pickle Rick", "MR Meseeks", "Microverse Battery", "Jessica", "sea cucumber"],
                 alert(error.message);
             }
         
