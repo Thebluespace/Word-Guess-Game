@@ -1,6 +1,6 @@
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++ Rick & Morty Hangman Game +++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++ created by Thomas Greene ++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++ Rick & Morty Hangman Gae +++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++ created by Thomas Greenme ++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
 
@@ -93,7 +93,7 @@ var gameo = {
                 document.getElementById("attempts").innerHTML = "Attempts: " + this.attempts;
                 document.getElementById("wins").innerHTML = "Wins: " + this.wins;
                 document.getElementById("loses").innerHTML = "Loses: " + this.loses;
-                this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length)];
+                this.currentWord = this.guessWordslist[Math.floor(Math.random() * this.guessWordslist.length) + 1];
                 //alert(this.currentWord);
                 for (var i = 0; i < this.currentWord.length; i++)
                 {
@@ -199,7 +199,7 @@ var gameo = {
         },
         preventRefresh: function(){
             document.getElementById("guessingchar").addEventListener("keydown", function(event) {
-            if(event.keyCode != 8 || event.keyCode != 229) {
+            if(event.keyCode != 8 || !event.key.includes("unidentified")) {
                 if (event.keyCode == "13") {
                     event.preventDefault();
                     gameo.guessChar();
