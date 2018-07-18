@@ -29,6 +29,7 @@ var gameo = {
             // Guess character function executed on Guess button press
             try{
                 // calls checkChar function to prevent guessing same character twice
+                this.exists = false;
                 this.exists = this.checkChar(document.getElementById("guessingchar").value)
                 if (this.exists == true) {
                         alert("You already guessed " + document.getElementById("guessingchar").value + "!");
@@ -125,7 +126,7 @@ var gameo = {
                     this.loses = this.loses + 1;
                 }
             } catch(error) {
-                error.message
+                alert(error.message);
             }
             this.formReset();
         },
@@ -199,12 +200,12 @@ var gameo = {
         },
         preventRefresh: function(){
             document.getElementById("guessingchar").addEventListener("keydown", function(event) {
-            if(event.keyCode != 8 || !event.key.includes("unidentified")) {
+            if(event.keyCode != 8) {
                 if (event.keyCode == "13") {
                     event.preventDefault();
                     gameo.guessChar();
                 } else {
-                    if(event.key != "undefined"){
+                    if(event.key.length == 1){
                         document.getElementById("guessingchar").value = event.key;
                     }
                 }
